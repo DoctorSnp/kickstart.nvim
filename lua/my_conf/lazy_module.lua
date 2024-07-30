@@ -24,7 +24,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
+  enable = false,
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -60,6 +60,12 @@ require('lazy').setup({
     config = function()
       require('nvim-tree').setup {}
     end,
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    enabled = false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -592,10 +598,32 @@ require('lazy').setup({
     'polirritmico/monokai-nightasty.nvim',
     lazy = false,
     priority = 1000,
+    --opts = {
+    --  on_colors = function(colors)
+    --    colors.statusline = '#baabaa'
+    --  end,
+    --/},
     config = function()
       vim.opt.background = 'dark' -- default to dark or light style
       vim.cmd.colorscheme 'monokai-nightasty'
     end,
+  },
+
+  -- Terminal
+  {
+    -- amongst your other plugins
+    { 'akinsho/toggleterm.nvim', version = '*', config = true },
+    -- or
+    {
+      enable = false,
+      'akinsho/toggleterm.nvim',
+      version = '*',
+      opts = {
+        autochdir = true,
+        --[[ things you want to change go here]]
+      },
+    },
+    --require('toggleterm').setup {},
   },
 
   -- Highlight todo, notes, etc in comments
@@ -606,7 +634,7 @@ require('lazy').setup({
     config = function()
       -- Better Around/Inside textobjects
       --
-      -- Examples:
+      -- /Examples:
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
